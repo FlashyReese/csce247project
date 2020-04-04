@@ -16,7 +16,25 @@ public class VenueDatabase extends SavableDatabase implements Database<Venue>{
 
     @Override
     public void add(Venue object) {
-        getVenues().add(object);
+        if(!containsVenue(object)){
+            getVenues().add(object);
+        }else{
+            Venue existingVenue = findVenue(object);
+            for (Theater theater : object.getTheaters()){
+                if(!existingVenue.containsTheater(theater)){
+                    existingVenue.addTheater(theater);
+                }else{
+                    Theater existingTheater = existingVenue.findTheater(theater);
+                    for (Event event: theater.getEvents()){
+                        if (!existingTheater.containsEvent(event)){
+                            existingTheater.addEvent(event);
+                        }
+                    }
+                    existingVenue.addTheater(existingTheater);
+                }
+            }
+            getVenues().add(existingVenue);
+        }
         saveVenues();
     }
 
@@ -27,6 +45,22 @@ public class VenueDatabase extends SavableDatabase implements Database<Venue>{
             saveVenues();
         }
         return check;
+    }
+
+    public Venue findVenue(Venue venue){
+        for (Venue venue1: getVenues()){
+            if (venue1.equals(venue))
+                return venue1;
+        }
+        return null;
+    }
+
+    public boolean containsVenue(Venue venue){
+        for (Venue v: getVenues()){
+            if (v.equals(venue))
+                return true;
+        }
+        return false;
     }
 
     public Venue findByName(String name){

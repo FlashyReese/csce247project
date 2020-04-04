@@ -47,7 +47,7 @@ public class Event {
 	 * 
 	 * @return
 	 */
-	public int getRating() {
+	public float getRating() {
 		int total = reviews.size();
 		int sum = 0;
 
@@ -55,7 +55,7 @@ public class Event {
 			sum += reviews.pop().getRating();
 		}
 
-		return sum / total;//Todo: I should point out that you guys are trolling with this, use a float pointer can't divide 2 ints and expect an return value of int;
+		return (float)sum / (float)total;//Todo: I should point out that you guys are trolling with this, use a float pointer can't divide 2 ints and expect an return value of int;
 
 	}
 
@@ -192,15 +192,12 @@ public class Event {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
 		if (obj == null || getClass() != obj.getClass()) {
 			return false;
 		}
 		Event event = (Event) obj;
 		return  event.getTitle().equalsIgnoreCase(getTitle()) &&
-				event.getGenre() == getGenre() && event.getRating() == getRating() && event.getType() == getType() &&
+				event.getGenre() == getGenre() && event.getType() == getType() &&
 				event.getDate().equalsIgnoreCase(getDate()) && event.getDescription().equalsIgnoreCase(getDescription())
 				&& event.getPrice() == getPrice();
 	}

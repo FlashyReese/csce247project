@@ -114,23 +114,6 @@ public class Driver {
     }
 
     public void register() throws IOException {
-
-        Venue venue = new Venue("Location", "Name");
-        Theater theater = new Theater(4, true);
-        Event event = new Event("Date", "Title", Genre.COMEDY, "any", true, Type.MOVIE, 10.0d);
-        theater.addEvent(event);
-        venue.addTheater(theater);
-        venues.add(venue);
-
-        //or
-        /*Venue venue = venues.findByName("Location");
-		Theater theater = venue.findByRoom(123);
-        Event event = new Event("Date", "Title", Genre.COMEDY, "any", true, Type.MOVIE, 10.0d);*/
-        theater.addEvent(event);
-		venue.addTheater(theater);
-		venues.add(venue);
-
-
         System.out.println("To register, enter username: ");
         String username = bufferedReader.readLine();
 

@@ -100,20 +100,23 @@ public class Theater {
 	}
 
 	public void addEvent(Event event){
-		if (!containsEvent(event)){
-			getEvents().add(event);
-		}
+		getEvents().add(event);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
 		if (obj == null || getClass() != obj.getClass()) {
 			return false;
 		}
 		Theater theater = (Theater) obj;
 		return room == theater.room && handicap == theater.handicap;
+	}
+
+	public Event findEvent(Event event) {
+		for (Event event1: getEvents()){
+			if (event.equals(event1))
+				return event;
+		}
+		return null;
 	}
 }

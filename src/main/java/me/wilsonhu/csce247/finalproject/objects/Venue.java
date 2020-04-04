@@ -1,7 +1,6 @@
 package me.wilsonhu.csce247.finalproject.objects;
 
 import java.util.HashSet;
-import java.util.LinkedList;
 
 public class Venue {
 	private String location;
@@ -58,17 +57,23 @@ public class Venue {
 	}
 
 	public void addTheater(Theater theater){
-		if(!containsTheater(theater)){
-			getTheaters().add(theater);
-		}
+		getTheaters().add(theater);
 	}
 
-	private boolean containsTheater(Theater theater){
+	public boolean containsTheater(Theater theater){
 		for (Theater t : theaters){
 			if(t.equals(theater))
 				return true;
 		}
 		return false;
+	}
+
+	public Theater findTheater(Theater theater1){
+		for (Theater theater : getTheaters()){
+			if (theater.equals(theater1))
+				return theater;
+		}
+		return null;
 	}
 
 	public Theater findByRoom(int room){
@@ -89,9 +94,6 @@ public class Venue {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
 		if (obj == null || getClass() != obj.getClass()) {
 			return false;
 		}
