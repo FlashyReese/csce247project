@@ -14,15 +14,17 @@ public class Event {
 	private boolean explicit;
 	private Type type;
 	private double price;
+	private int seats[][] = new int[10][10];
 	private LinkedList<Review> reviews;
 
+
 	/**
-	 *
-	 * @param date
+	 *  @param date
 	 * @param title
 	 * @param genre
 	 * @param description
 	 * @param explicit
+	 * @param seats
 	 */
 	public Event(String date, String title, Genre genre, String description, boolean explicit,
 				 Type type, double price) {
@@ -182,6 +184,14 @@ public class Event {
 		return "Type: \t" + this.type + "\nPrice: \t$" + this.price + "\nDate & Time: /t" + this.date + "\nTitle: \t" + this.title + "\nGenre: \t" + this.genre
 				+ "\nDescription: \t" + this.description + "Explicit: \t" + (this.explicit ? "Yes" : "No")
 				+ "\nRatings: \t" + this.getRating();
+	}
+
+	public int[][] getSeats() {
+		return seats;
+	}
+
+	public void setSeats(int[][] seats) {
+		this.seats = seats;
 	}
 
 	public String ticketString() {

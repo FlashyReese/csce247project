@@ -88,32 +88,28 @@ public class Driver {
     public void signIn() throws IOException {
         System.out.println("Enter username: ");
         String username = bufferedReader.readLine();
-        if (users.hasUser(username)) {
-            System.out.println("Enter password: ");
-            String password = bufferedReader.readLine();
-            User user = users.get(username);
-            // casting to registeduser
-            if (user instanceof RegisteredUser) {
-                if (((RegisteredUser) user).getPassword().equals(password)) {
-                    currentUser = user;
-                    System.out.println("Login successful");
-                    return;
-                }
-            }
-
-            // casting to admin
-            if (user instanceof Admin) {
-                if (((Admin) user).getPassword().equals(password)) {
-                    currentUser = user;
-                    System.out.println("Login successful");
-                }
-            }
-        } else {
-            System.out.println("User not found");
+        System.out.println("Enter password: ");
+        String password = bufferedReader.readLine();
+        if(users.login(username, password, users.getAdmins(), Admin.class)){
+            currentUser = users.getUser(username, users.getAdmins());
+            System.out.println("Logged in successfully as Admin");
+        }else if(users.login(username, password, users.getUsers(), RegisteredUser.class)){
+            currentUser = users.getUser(username, users.getUsers());
+            System.out.println("Logged in successfully as User");
+        }else{
+            System.out.println("Invalid username/password");
         }
     }
 
     public void register() throws IOException {
+        Venue venue = new Venue("Merida", "Centro de Convencion");
+        Theater theater = new Theater(1, false);
+        Event event = new Event("20 de abril", "Beisbol internacional", Genre.INDIE, "Leones de Yucatan", false,
+        Type.CONCERT, 20D);
+        theater.addEvent(event);
+        venue.addTheater(theater);
+        venues.add(venue);
+
         System.out.println("To register, enter username: ");
         String username = bufferedReader.readLine();
 

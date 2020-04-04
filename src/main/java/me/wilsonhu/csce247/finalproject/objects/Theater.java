@@ -6,25 +6,13 @@ public class Theater {
 	private int room;
 	private boolean handicap;
 	private int capacity;
-	private String[][] seats;
 	private HashSet<Event> events;
 
 	public Theater(int room, boolean handicap) {
 		this.setRoom(room);
 		this.setHandicap(handicap);
 		this.setEvents(new HashSet<>());
-		initRoom();
-	}
-
-	public void initRoom() {
-		this.seats = new String[10][10];
-		this.setCapacity(this.seats.length * this.seats[0].length);
-
-		for (int i = 0; i < this.seats.length; i++) {
-			for (int j = 0; j < this.seats[i].length; j++) {
-				this.seats[i][j] = "O";
-			}
-		}
+		this.setCapacity(100);//Make sure this can be sqrt
 	}
 
 	/**
@@ -69,19 +57,6 @@ public class Theater {
 		this.capacity = capacity;
 	}
 
-	/**
-	 * @return the seats
-	 */
-	public String[][] getSeats() {
-		return seats;
-	}
-
-	/**
-	 * @param seats the seats to set
-	 */
-	public void setSeats(String[][] seats) {
-		this.seats = seats;
-	}
 
 	public HashSet<Event> getEvents(){
 		return events;

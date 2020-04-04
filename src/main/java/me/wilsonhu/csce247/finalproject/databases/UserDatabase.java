@@ -1,13 +1,12 @@
 package me.wilsonhu.csce247.finalproject.databases;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import me.wilsonhu.csce247.finalproject.objects.*;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class UserDatabase extends SavableDatabase implements Database<User> {
@@ -34,6 +33,8 @@ public class UserDatabase extends SavableDatabase implements Database<User> {
 			saveAdmins();
 		}
 	}
+
+
 
 	public boolean remove(User user) {
 		if(user instanceof RegisteredUser){
@@ -94,6 +95,47 @@ public class UserDatabase extends SavableDatabase implements Database<User> {
 			saveAdmins();
 		}
 		setAdmin(read(ADMIN_FILE_NAME, new TypeToken<HashSet<Admin>>(){}.getType()));
+	}
+
+
+	public void readLogin(){
+		String username = "qwerty";
+		String password = "qwerty";
+		User currentUser = null;
+		if(login(username, password, getAdmins(), Admin.class)){
+			currentUser = getUser(username, getAdmins());
+		}else if(login(username, password, getUsers(), RegisteredUser.class)){
+			currentUser = getUser(username, getUsers());
+		}else{
+			System.out.println("Invalid username/password");
+		}
+	}
+
+	public boolean login(String username, String password, HashSet<? extends User> hashSet, Class<? extends User> clazz){
+		if (clazz == RegisteredUser.class) {
+			for (User user: hashSet){
+				RegisteredUser castedUser = (RegisteredUser)user;
+				if(castedUser.getUsername().equals(username) && castedUser.getPassword().equalsIgnoreCase(password))
+					return true;
+			}
+		}else if (clazz == Admin.class){
+			for (User user: hashSet){
+				Admin castedUser = (Admin)user;
+				if(castedUser.getUsername().equals(username) && castedUser.getPassword().equalsIgnoreCase(password))
+					return true;
+			}
+		}else{
+			System.out.println("Invalid class");
+		}
+		return false;
+	}
+
+	public User getUser(String username, HashSet<? extends User> hashSet){
+		for (User user: hashSet){
+			if (user.getUsername().equalsIgnoreCase(username))
+				return user;
+		}
+		return null;
 	}
 
 	public void saveUsers(){
