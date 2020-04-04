@@ -1,7 +1,5 @@
 package me.wilsonhu.csce247.finalproject.objects;
 
-import java.util.LinkedList;
-
 /**
  * Event class
  */
@@ -15,7 +13,6 @@ public class Event {
 	private Type type;
 	private double price;
 	private int seats[][] = new int[10][10];
-	private LinkedList<Review> reviews;
 
 
 	/**
@@ -35,30 +32,6 @@ public class Event {
 		this.setExplicit(explicit);
 		this.setType(type);
 		this.setPrice(price);
-		this.reviews = new LinkedList<Review>();
-	}
-
-	/**
-	 * 
-	 */
-	public void viewReviews() {
-		System.out.println(reviews.toString());
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public float getRating() {
-		int total = reviews.size();
-		int sum = 0;
-
-		while (reviews.peek() != null) {
-			sum += reviews.pop().getRating();
-		}
-
-		return (float)sum / (float)total;//Todo: I should point out that you guys are trolling with this, use a float pointer can't divide 2 ints and expect an return value of int;
-
 	}
 
 	/**
@@ -164,26 +137,11 @@ public class Event {
 	}
 
 	/**
-	 * @return the reviews
-	 */
-	public LinkedList<Review> getReviews() {
-		return reviews;
-	}
-
-	/**
-	 * @param review the reviews to set
-	 */
-	public void addReview(Review review) {
-		reviews.add(review);
-	}
-
-	/**
 	 * 
 	 */
 	public String toString() {
-		return "Type: \t" + this.type + "\nPrice: \t$" + this.price + "\nDate & Time: /t" + this.date + "\nTitle: \t" + this.title + "\nGenre: \t" + this.genre
-				+ "\nDescription: \t" + this.description + "Explicit: \t" + (this.explicit ? "Yes" : "No")
-				+ "\nRatings: \t" + this.getRating();
+		return "Type: \t" + this.type + "\nPrice: \t$" + this.price + "\nDate & Time: \t" + this.date + "\nTitle: \t" + this.title + "\nGenre: \t" + this.genre
+				+ "\nDescription: \t" + this.description + "\nExplicit: \t" + (this.explicit ? "Yes" : "No");
 	}
 
 	public int[][] getSeats() {

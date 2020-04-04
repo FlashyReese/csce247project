@@ -1,11 +1,10 @@
 package me.wilsonhu.csce247.finalproject.databases;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import me.wilsonhu.csce247.finalproject.Application;
 import me.wilsonhu.csce247.finalproject.objects.*;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
@@ -13,6 +12,10 @@ import java.util.HashSet;
 public class VenueDatabase extends SavableDatabase implements Database<Venue>{
 
     private HashSet<Venue> venues = new HashSet<>();
+
+    public VenueDatabase(){
+        loadVenues();
+    }
 
     @Override
     public void add(Venue object) {
@@ -113,7 +116,7 @@ public class VenueDatabase extends SavableDatabase implements Database<Venue>{
         for (Venue venue : getVenues()){
             for (Theater theater : venue.getTheaters()){
                 for (Event event: theater.getEvents()){
-                    if(event.getRating() == rating){
+                    if(Application.getDriver().getReviews().findEventReview(event).getRating() == rating){
                         printFormat(venue, theater, event);
                     }
                 }
@@ -185,7 +188,7 @@ public class VenueDatabase extends SavableDatabase implements Database<Venue>{
         builder.append("Event Genre: ").append(event.getGenre().toString()).append("\n");
         builder.append("Event Price: ").append(event.getPrice()).append("\n");
         builder.append("Event Type: ").append(event.getType().toString()).append("\n");
-        builder.append("Event Rating: ").append(event.getRating()).append("\n");
+        builder.append("Event Rating: ").append(Application.getDriver().getReviews().findEventReview(event).getRating()).append("\n");
         builder.append("\n\n");
         System.out.println(builder.toString());
     }
@@ -194,7 +197,7 @@ public class VenueDatabase extends SavableDatabase implements Database<Venue>{
         for (Venue venue : getVenues()){
             for (Theater theater : venue.getTheaters()){
                 for (Event event: theater.getEvents()){
-                    System.out.println(event);
+                    printFormat(venue, theater, event);
                 }
             }
         }

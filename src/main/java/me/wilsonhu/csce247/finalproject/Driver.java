@@ -1,5 +1,6 @@
 package me.wilsonhu.csce247.finalproject;
 
+import me.wilsonhu.csce247.finalproject.databases.ReviewDatabase;
 import me.wilsonhu.csce247.finalproject.databases.UserDatabase;
 import me.wilsonhu.csce247.finalproject.databases.VenueDatabase;
 import me.wilsonhu.csce247.finalproject.objects.*;
@@ -11,19 +12,19 @@ import java.io.PrintWriter;
 
 public class Driver {
 
-    private VenueDatabase venues;
-    private UserDatabase users;
+    private VenueDatabase venues = new VenueDatabase();
+    private UserDatabase users = new UserDatabase();
+    private ReviewDatabase reviews = new ReviewDatabase();
     private User currentUser;
     private BufferedReader bufferedReader;
 
     public Driver() {
-        venues = new VenueDatabase();
-        users = new UserDatabase();
-        venues.loadVenues();
-        users.loadUsers();
-        users.loadAdmins();
         currentUser = new User("default");
         bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    }
+
+    public ReviewDatabase getReviews() {
+        return reviews;
     }
 
     public void start() throws IOException {
@@ -103,7 +104,7 @@ public class Driver {
 
     public void register() throws IOException {
         Venue venue = new Venue("Merida", "Centro de Convencion");
-        Theater theater = new Theater(1, false);
+        Theater theater = new Theater(2, false);
         Event event = new Event("20 de abril", "Beisbol internacional", Genre.INDIE, "Leones de Yucatan", false,
         Type.CONCERT, 20D);
         theater.addEvent(event);
@@ -306,7 +307,6 @@ public class Driver {
     }
 
     public void writeReview(int rating, String review, String title) {
-        Event e = venues.getEvent(title);
-        e.addReview(new Review(rating, review));
+        reviews.writeReview(venues.getEvent(title), review, rating);
     }
 }

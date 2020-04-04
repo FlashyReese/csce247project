@@ -6,13 +6,17 @@ import me.wilsonhu.csce247.finalproject.objects.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public class UserDatabase extends SavableDatabase implements Database<User> {
 
 	private HashSet<RegisteredUser> users = new HashSet<>();
 	private HashSet<Admin> admins = new HashSet<>();
+
+	public UserDatabase(){
+		loadUsers();
+		loadAdmins();
+	}
 
 	public void addUser(String username, String password, Status status) {
 		getUsers().add(new RegisteredUser(username, password, status));
@@ -33,8 +37,6 @@ public class UserDatabase extends SavableDatabase implements Database<User> {
 			saveAdmins();
 		}
 	}
-
-
 
 	public boolean remove(User user) {
 		if(user instanceof RegisteredUser){
