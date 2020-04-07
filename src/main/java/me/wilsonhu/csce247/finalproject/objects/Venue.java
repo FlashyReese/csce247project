@@ -1,16 +1,16 @@
 package me.wilsonhu.csce247.finalproject.objects;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class Venue {
 	private String location;
 	private String name;
-	private HashSet<Theater> theaters;
+	private ArrayList<Theater> theaters;
 
 	public Venue(String location, String name) {
 		this.setLocation(location);
 		this.setName(name);
-		this.theaters = new HashSet<>();
+		this.theaters = new ArrayList<>();
 	}
 
 
@@ -45,14 +45,14 @@ public class Venue {
 	/**
 	 * @return the theaters
 	 */
-	public HashSet<Theater> getTheaters() {
+	public ArrayList<Theater> getTheaters() {
 		return theaters;
 	}
 
 	/**
 	 * @param theaters the theaters to set
 	 */
-	public void setTheaters(HashSet<Theater> theaters) {
+	public void setTheaters(ArrayList<Theater> theaters) {
 		this.theaters = theaters;
 	}
 

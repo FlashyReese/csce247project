@@ -254,6 +254,44 @@ public class Driver {
         venues.printAll();
     }
 
+    Venue selectedVenue = null;
+    Theater selectedTheater = null;
+    Event selectedEvent = null;
+
+    public void printVenues() throws IOException {
+        System.out.println("Please select a venue:");
+        int count = 1;
+        for (Venue venue: venues.getVenues()){
+            System.out.println(count + ". " + venue.getName() + " - " + venue.getLocation());
+            count++;
+        }
+        int option = Integer.parseInt(bufferedReader.readLine());
+        selectedVenue = venues.getVenues().get(option-1);
+        printAllEventsFromVenue(selectedVenue);
+    }
+
+    private void printAllEventsFromVenue(Venue selectedVenue) throws IOException {
+        int count = 1;
+        for (Theater theater: selectedVenue.getTheaters()){
+            for (Event event: theater.getEvents()){
+                System.out.println(count + ". " + event.getTitle() + " - " + event.getDate());
+                count++;
+            }
+        }
+        int option = Integer.parseInt(bufferedReader.readLine());
+        count = 1;
+        for (Theater theater: selectedVenue.getTheaters()){
+            for (Event event: theater.getEvents()){
+                if (count == option){
+                    selectedTheater = theater;
+                    selectedEvent = event;
+                }
+                count++;
+            }
+        }
+        //Todo: Now Menu for purchasing passing selected Venue/Theater/Event
+    }
+
     public void viewSeating(String title) {
 
     }

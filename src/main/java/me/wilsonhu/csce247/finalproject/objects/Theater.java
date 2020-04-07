@@ -1,17 +1,17 @@
 package me.wilsonhu.csce247.finalproject.objects;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class Theater {
 	private int room;
 	private boolean handicap;
 	private int capacity;
-	private HashSet<Event> events;
+	private ArrayList<Event> events;
 
 	public Theater(int room, boolean handicap) {
 		this.setRoom(room);
 		this.setHandicap(handicap);
-		this.setEvents(new HashSet<>());
+		this.setEvents(new ArrayList<>());
 		this.setCapacity(100);//Make sure this can be sqrt
 	}
 
@@ -58,11 +58,11 @@ public class Theater {
 	}
 
 
-	public HashSet<Event> getEvents(){
+	public ArrayList<Event> getEvents(){
 		return events;
 	}
 
-	public void setEvents(HashSet<Event> events){
+	public void setEvents(ArrayList<Event> events){
 		this.events = events;
 	}
 

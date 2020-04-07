@@ -6,7 +6,9 @@ public class Application {
     private static Driver driver = new Driver();
 
     public static void main(String[] args) throws IOException {
-        driver.start();
+        System.out.println(String.format("%.2f", 2.12452D));
+        //driver.printVenues();
+        //driver.start();
     }
 
     public static Driver getDriver() {

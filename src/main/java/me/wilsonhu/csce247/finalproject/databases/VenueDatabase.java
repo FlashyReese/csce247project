@@ -4,14 +4,15 @@ import com.google.gson.reflect.TypeToken;
 import me.wilsonhu.csce247.finalproject.Application;
 import me.wilsonhu.csce247.finalproject.objects.*;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class VenueDatabase extends SavableDatabase implements Database<Venue>{
 
-    private HashSet<Venue> venues = new HashSet<>();
+    private ArrayList<Venue> venues = new ArrayList<>();
 
     public VenueDatabase(){
         loadVenues();
@@ -213,18 +214,18 @@ public class VenueDatabase extends SavableDatabase implements Database<Venue>{
             }
             saveVenues();
         }
-        setVenues(read(VENUE_FILE_NAME, new TypeToken<HashSet<Venue>>(){}.getType()));
+        setVenues(read(VENUE_FILE_NAME, new TypeToken<ArrayList<Venue>>(){}.getType()));
     }
 
     public void saveVenues(){
         write(getVenues(), VENUE_FILE_NAME);
     }
 
-    public HashSet<Venue> getVenues() {
+    public ArrayList<Venue> getVenues() {
         return venues;
     }
 
-    public void setVenues(HashSet<Venue> venues) {
+    public void setVenues(ArrayList<Venue> venues) {
         this.venues = venues;
     }
 }
